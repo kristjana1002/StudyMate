@@ -31,6 +31,16 @@ ai
 openai api
 
 
+
+
+
+
+
+
+
+---------------------------------------------------
+
+
 backend/
 ├── server.js
 ├── .env
@@ -80,69 +90,6 @@ frontend/
 │       └── api.ts
 
 
-
-
-
-studymate/
-│
-├── backend/                # Server + API
-│   ├── package.json        # Node.js dependencies
-│   ├── server.js           # Entry point
-│   ├── .env                # Environment variables (DB credentials, API keys)
-│   ├── config/
-│   │   └── db.js           # SQL DB connection setup
-│   ├── controllers/        # Functions that handle logic
-│   │   ├── userController.js
-│   │   ├── noteController.js
-│   │   ├── quizController.js
-│   │   └── aiController.js
-│   ├── models/             # SQL table models
-│   │   ├── User.js
-│   │   ├── Note.js
-│   │   ├── Quiz.js
-│   │   └── Progress.js
-│   ├── routes/             # API endpoints
-│   │   ├── userRoutes.js
-│   │   ├── noteRoutes.js
-│   │   ├── quizRoutes.js
-│   │   └── aiRoutes.js
-│   └── utils/
-│       └── helpers.js      # Helper functions (e.g., formatting, validations)
-│
-├── frontend/               # React app
-│   ├── package.json
-│   ├── public/
-│   │   ├── index.html
-│   │   └── favicon.ico
-│   ├── src/
-│   │   ├── index.tsx       # Entry point
-│   │   ├── App.tsx         # Main app component
-│   │   ├── styles/         # CSS or SCSS files
-│   │   │   └── main.css
-│   │   ├── components/     # Reusable UI components
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── QuizCard.tsx
-│   │   ├── pages/          # Different screens
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── UploadNotes.tsx
-│   │   │   ├── SummaryPage.tsx
-│   │   │   └── QuizPage.tsx
-│   │   ├── context/        # React context for global state (user, AI results)
-│   │   │   └── UserContext.tsx
-│   │   └── services/       # API calls to backend
-│   │       └── api.ts
-│
-├── database/               # SQL scripts
-│   ├── schema.sql          # Table creation scripts
-│   └── seed.sql            # Optional: initial data for testing
-│
-├── docs/                   # Project documentation
-│   ├── project_plan.pdf
-│   └── diagrams/           # Flowcharts, wireframes
-│
-├── .gitignore
-└── README.md
 
 
 

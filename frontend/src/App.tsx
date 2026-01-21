@@ -1,3 +1,6 @@
+// Main App layout and page routing
+
+
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';

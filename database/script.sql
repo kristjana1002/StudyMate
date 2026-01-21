@@ -1,0 +1,1 @@
+-- Creates all tables: users, notes, quizzes, progress
