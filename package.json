@@ -1,0 +1,27 @@
+{
+  "name": "studymate",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/kristjana1002/StudyMate#readme",
+  "bugs": {
+    "url": "https://github.com/kristjana1002/StudyMate/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristjana1002/StudyMate.git"
+  },
+  "license": "ISC",
+  "author": "raven kristjana",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "psql": "^0.0.1"
+  }
+}
