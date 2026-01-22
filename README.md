@@ -38,6 +38,15 @@ openai api
 
 
 
+
+
+
+
+
+
+
+
+
 ---------------------------------------------------
 
 
@@ -95,11 +104,11 @@ frontend/
 
 
 weekly plan: NOT FOR TEACHER EYES
-Week 1 (22.01 – 28.01): Planning & Prep
-    •    Define full project scope (core + optional features)
-    •    Decide tech stack (frontend, backend, DB, AI)
-    •    Sketch flow diagram & wireframes for all screens
-    •    Setup Git repo/project structure
+Week 1 (22.01 – 28.01): Planning & Prep ---done
+    •    Define full project scope (core + optional features) ---done
+    •    Decide tech stack (frontend, backend, DB, AI) ---done
+    •    Sketch flow diagram & wireframes for all screens ---done
+    •    Setup Git repo/project structure ---done
 
 Goal by Sunday: Clear blueprint of app + project plan ready
 
@@ -205,4 +214,4 @@ Goal by Sunday: App + report + presentation ready
 Week 13 (15.04 – 16.04): Submission & Demo
     •    Final tweaks, finalize everything
     •    Submit project by 16.04
-    •    Flex on presentation day 😎 I have the web idea I only made the folders no files nth lets go to terminal and download everything we need
+    •    Flex on presentation day 
