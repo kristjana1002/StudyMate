@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-const UploadNotes = () => {
+const Upload = () => {
   return <div>Upload Notes Page</div>;
 };
 
-export default UploadNotes;
+export default Upload;

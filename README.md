@@ -115,7 +115,7 @@ Goal by Sunday: Clear blueprint of app + project plan ready
 ⸻
 
 Week 2 (29.01 – 04.02): Backend basics
-    •    Initialize Node.js + Express server
+    •    Initialize Node.js + Express server ---done
     •    Connect database (sql)
     •    Set up basic routes & test connection
     •    Implement simple user authentication (signup/login)
@@ -214,4 +214,4 @@ Goal by Sunday: App + report + presentation ready
 Week 13 (15.04 – 16.04): Submission & Demo
     •    Final tweaks, finalize everything
     •    Submit project by 16.04
-    •    Flex on presentation day 
+    •    Flex on presentation day a

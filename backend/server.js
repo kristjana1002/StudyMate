@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
+const db = require('./config/db'); // just require to run connection
+
 
 dotenv.config();
 const app = express();

@@ -1,23 +1,28 @@
-// src/App.tsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import UploadNotes from "./pages/UploadNotes";
+import QuizPage from "./pages/QuizPage";
+import ProgressPage from "./pages/Progress";
+import AiChat from "./pages/AiChat";
+import Summary from "./pages/SummaryPage";
+import Flashcards from "./pages/Flashcards";
+import './App.css';
+
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Navbar />
       <Routes>
-        {/* Default route */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
-
-        {/* Auth routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-
-        {/* Protected route */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/UploadNotes" element={<UploadNotes />} />
+        <Route path="/QuizPage" element={<QuizPage />} />
+        <Route path="/AiChat" element={<AiChat/>} />
+        <Route path="Progress" element={<ProgressPage />}/>
+        <Route path="/SummaryPage" element={<Summary />} />
+        <Route path="/Flashcards" element={<Flashcards />} />
       </Routes>
     </Router>
   );
