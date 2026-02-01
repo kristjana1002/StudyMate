@@ -10,7 +10,7 @@ const Dashboard = () => {
         <p>Your Al-powered learning companion is ready to help you excel</p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px' }}>
+      <div style={{ display: 'flex',  gap: '20px' }}>
         <div style={{ flex: 1, padding: '20px', backgroundColor: '#eee', borderRadius: '10px' }}>
           Stats 1
         </div>
