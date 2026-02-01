@@ -143,6 +143,7 @@ Users upload notes and receive AI-generated summaries.
 ---
 
 ### Page 4: Quiz Page
+<<<<<<< HEAD
 
 ### **03.02 – 09.02**
 
@@ -317,4 +318,179 @@ Complete documentation ready.
 * Project submission
 * Presentation/demo
 
+=======
+
+### **03.02 – 09.02**
+
+**Backend**
+
+* AI-generated quizzes (MCQs, short answers)
+* Store quiz results
+* Fetch quizzes by topic
+
+**Frontend**
+
+* Quiz interface
+* Answer submission
+* Results display
+
+**AI**
+
+* Quiz generation based on notes
+
+**Outcome:**
+Users can take quizzes and view performance.
+
+---
+
+### Page 5: Study Plan & Recommendations
+
+### **10.02 – 16.02**
+
+**Backend**
+
+* Performance analysis logic
+* Personalized study plan API
+
+**Frontend**
+
+* Study plan page
+* Recommended topics UI
+* Progress indicators
+
+**AI**
+
+* Adaptive topic recommendations
+
+**Outcome:**
+Users receive a personalized study plan.
+
+---
+
+### Page 6: Adaptive Learning Modes
+
+### **17.02 – 23.02**
+
+**Backend**
+
+* Text-to-speech API
+* AI chatbot endpoint
+* Structured content generation
+
+**Frontend**
+
+* Learning mode selector
+* Audio playback UI
+* Chatbot interface
+* Interactive exercises
+
+**Outcome:**
+Support for visual, auditory, reading, and kinesthetic learners.
+
+---
+
+### Page 7: Progress Tracker & Analytics
+
+### **24.02 – 02.03**
+
+**Backend**
+
+* Progress tracking logic
+* Streak and performance APIs
+
+**Frontend**
+
+* Charts & graphs
+* Streak display
+* Analytics dashboard
+
+**AI**
+
+* Progress-based learning suggestions
+
+**Outcome:**
+Users can visually track learning progress.
+
+---
+
+### Page 8: Optional / Advanced Features
+
+### **03.03 – 09.03**
+
+**Backend**
+
+* Gamification logic (points, badges)
+* Voice-to-text processing
+* Group study endpoints (optional)
+
+**Frontend**
+
+* Badges & points UI
+* Voice input interface
+* Group study UI
+
+**Outcome:**
+Enhanced engagement and advanced features.
+
+---
+
+## Phase 3: Testing & Finalization
+
+### Testing Phase
+
+### **10.03 – 23.03**
+
+* Page-by-page feature testing
+* Bug fixes
+* UI/UX refinements
+
+**Outcome:**
+All features working reliably.
+
+---
+
+### Integration & Polish
+
+### **24.03 – 30.03**
+
+* Full system integration
+* Frontend ↔ Backend ↔ AI testing
+* Performance optimization
+
+**Outcome:**
+Fully integrated and polished application.
+
+---
+
+### Documentation
+
+### **31.03 – 06.04**
+
+* Final project report
+* Architecture diagrams
+* Screenshots
+* Future improvements section
+
+**Outcome:**
+Complete documentation ready.
+
+---
+
+### Final Testing & Presentation Prep
+
+### **07.04 – 13.04**
+
+* Final bug fixes
+* Prepare slides and demo flow
+
+---
+
+### Submission & Demo
+
+### **14.04 – 16.04**
+
+* Final review
+* Project submission
+* Presentation/demo
+fbd9b9e (updating readme)
 
