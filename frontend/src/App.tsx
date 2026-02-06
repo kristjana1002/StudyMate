@@ -8,21 +8,21 @@ import ProgressPage from "./pages/Progress";
 import AiChat from "./pages/AiChat";
 import Summary from "./pages/SummaryPage";
 import Flashcards from "./pages/Flashcards";
-import './App.css';
-
+import "./App.css";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/UploadNotes" element={<UploadNotes />} />
-        <Route path="/QuizPage" element={<QuizPage />} />
-        <Route path="/AiChat" element={<AiChat/>} />
-        <Route path="Progress" element={<ProgressPage />}/>
-        <Route path="/SummaryPage" element={<Summary />} />
-        <Route path="/Flashcards" element={<Flashcards />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/upload-notes" element={<UploadNotes />} />
+        <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/ai-chat" element={<AiChat />} />
+        <Route path="/progress" element={<ProgressPage />} />
+        <Route path="/summary" element={<Summary />} />
+        <Route path="/flashcards" element={<Flashcards />} />
       </Routes>
     </Router>
   );
