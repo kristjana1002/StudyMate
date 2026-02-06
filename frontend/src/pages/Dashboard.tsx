@@ -1,27 +1,53 @@
-import React from 'react';
+import React from "react";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1 style={{ fontSize: '48px', fontWeight: 'bold', marginBottom: '40px' }}>
-        Welcome back, scholars
-      </h1>
-      <div>
-        <p>Your Al-powered learning companion is ready to help you excel</p>
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <h1>
+          Welcome back, <span>Scholar</span>
+        </h1>
+        <p>Your AI-powered learning companion is ready to help you excel</p>
       </div>
 
-      <div style={{ display: 'flex',  gap: '20px' }}>
-        <div style={{ flex: 1, padding: '20px', backgroundColor: '#eee', borderRadius: '10px' }}>
-          Stats 1
+      <div className="stats">
+        <div className="stat-card">
+          <h3>Study Streak</h3>
+          <p className="stat-value">
+            12 <span>days</span>
+          </p>
         </div>
-        <div style={{ flex: 1, padding: '20px', backgroundColor: '#eee', borderRadius: '10px' }}>
-          Stats 2
+
+        <div className="stat-card">
+          <h3>Topics Mastered</h3>
+          <p className="stat-value">
+            24 <span>topics</span>
+          </p>
         </div>
-        <div style={{ flex: 1, padding: '20px', backgroundColor: '#eee', borderRadius: '10px' }}>
-          Stats 3
+
+        <div className="stat-card">
+          <h3>Quiz Score</h3>
+          <p className="stat-value">
+            87 <span>%</span>
+          </p>
         </div>
-        <div style={{ flex: 1, padding: '20px', backgroundColor: '#eee', borderRadius: '10px' }}>
-          Stats 4
+
+        <div className="stat-card">
+          <h3>Study Hours</h3>
+          <p className="stat-value">
+            42 <span>hrs</span>
+          </p>
+        </div>
+      </div>
+
+      <div className="quick-actions">
+        <h2>⚡ Quick Actions</h2>
+
+        <div className="actions">
+          <div className="action-card">Upload Notes →</div>
+          <div className="action-card">Take Quiz →</div>
+          <div className="action-card">AI Assistant →</div>
+          <div className="action-card">Flashcards →</div>
         </div>
       </div>
     </div>
