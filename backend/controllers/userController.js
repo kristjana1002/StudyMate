@@ -1,33 +1,55 @@
-// Handles user actions like signup and login
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const pool = require("../config/db");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-// Signup
 exports.signup = async (req, res) => {
   const { username, email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ error: "Missing fields" });
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, email, password: hashedPassword });
-    res.status(201).json({ message: 'User created', userId: user.id });
+
+    const { rows } = await pool.query(
+      `INSERT INTO users (username, email, password)
+       VALUES ($1, $2, $3)
+       RETURNING id, username, email`,
+      [username || "Scholar", email, hashedPassword]
+    );
+
+    res.status(201).json({ message: "User created", user: rows[0] });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (err.code === "23505") return res.status(400).json({ error: "Email already exists" });
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 };
 
-// Login
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ error: "Missing fields" });
+
   try {
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.status(404).json({ error: 'User not found' });
+    const { rows } = await pool.query(
+      `SELECT id, username, email, password
+       FROM users
+       WHERE email = $1
+       LIMIT 1`,
+      [email]
+    );
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ error: 'Invalid password' });
+    const user = rows[0];
+    if (!user) return res.status(404).json({ error: "User not found" });
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return res.status(401).json({ error: "Invalid password" });
+
+    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 };
