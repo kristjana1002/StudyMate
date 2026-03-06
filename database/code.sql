@@ -15,3 +15,7 @@ VALUES (
   'Completed Math Quiz',
   92
 );
+
+ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS note_id UUID REFERENCES notes(id) ON DELETE SET NULL;
+ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS topic TEXT;
+ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS quiz_type TEXT CHECK (quiz_type IN ('mcq','short'));

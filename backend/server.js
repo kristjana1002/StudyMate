@@ -4,6 +4,10 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const dashboardRoutes = require("./routes/dashboardRoutes");
 require('./config/db');
+const noteRoutes = require("./routes/noteRoutes");
+app.use("/api/notes", noteRoutes);
+const quizRoutes = require("./routes/quizRoutes");
+app.use("/api/quizzes", quizRoutes);
 
 dotenv.config();
 
@@ -14,6 +18,8 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -63,3 +63,39 @@ CREATE TABLE IF NOT EXISTS activities (
   score_percent INT NULL CHECK (score_percent BETWEEN 0 AND 100),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+
+CREATE TABLE IF NOT EXISTS notes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(255),
+  original_filename VARCHAR(255),
+  file_path VARCHAR(512),
+  content LONGTEXT,
+  summary LONGTEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS quiz_questions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  quiz_id UUID NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
+  question_index INT NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('mcq','short')),
+  question TEXT NOT NULL,
+  choices JSONB,          
+  correct JSONB,          
+  explanation TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (quiz_id, question_index)
+);
+
+CREATE TABLE IF NOT EXISTS quiz_answers (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  attempt_id UUID NOT NULL REFERENCES quiz_attempts(id) ON DELETE CASCADE,
+  question_id UUID NOT NULL REFERENCES quiz_questions(id) ON DELETE CASCADE,
+  answer JSONB NOT NULL, 
+  is_correct BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (attempt_id, question_id)
+);

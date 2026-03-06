@@ -1,4 +1,3 @@
-// Bottom footer
 const Footer = () => {
   return <footer>My Footer</footer>;
 };

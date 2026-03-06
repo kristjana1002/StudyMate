@@ -1,4 +1,3 @@
-// Shows a single quiz question
 import React from 'react';
 
 interface QuizCardProps {

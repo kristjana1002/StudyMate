@@ -5,27 +5,18 @@ const Users = require("../models/Users");
 
 exports.getDashboard = async (req, res) => {
   try {
-    const userId = req.user.id; 
-
-
+    const userId = req.user.id;
 
     const studyStreak = await Progress.getStudyStreak(userId);
     const totalStudyHours = await Progress.getTotalStudyHours(userId);
     const avgQuizScore = await Quiz.getAverageScore(userId);
     const topicsMastered = await Progress.getTopicsMastered(userId);
 
-
-
     const weeklyStudyHours = await Progress.getWeeklyStudyHours(userId);
-
 
     const subjectPerformance = await Quiz.getSubjectPerformance(userId);
 
-
-
     const studyPlan = await Progress.getTodayStudyPlan(userId);
-
- 
 
     const recentActivity = await Progress.getRecentActivity(userId);
 
