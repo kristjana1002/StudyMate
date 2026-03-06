@@ -1,4 +1,3 @@
-// Page to take quizzes or flashcards
 import React from 'react';
 
 const Flashcards = () => {

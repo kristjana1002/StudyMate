@@ -1,4 +1,3 @@
-// Stores user info and app data globally
 import { createContext } from 'react';
 
 interface User {

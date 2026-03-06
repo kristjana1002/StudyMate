@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import UploadNotes from "./pages/UploadNotes";
@@ -20,11 +19,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* Public */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected */}
         <Route
           path="/"
           element={
@@ -120,12 +117,22 @@ const App: React.FC = () => {
             </RequireAuth>
           }
         />
+e
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
 };
+<Route
+  path="/quiz/:id"
+  element={
+    <RequireAuth>
+      <>
+        <Navbar />
+        <QuizPage />
+      </>
+    </RequireAuth>
+  }
+/>
 
 export default App;

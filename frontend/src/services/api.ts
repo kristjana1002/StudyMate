@@ -46,3 +46,56 @@ export const authedGet = async <T,>(path: string): Promise<T> => {
   return json as T;
 };
 
+export async function uploadNote(file: File, title: string) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("title", title);
+
+  const token = localStorage.getItem("token");
+
+const res = await fetch(`${API_BASE}/notes/upload`, {    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Upload failed");
+  }
+
+  return res.json();
+}
+
+export const getNoteById = async (id: number) => {
+  return authedGet<{ id: number; title: string; summary: string; created_at: string }>(`/notes/${id}`);
+};
+
+
+export async function getQuiz(quizId: number) {
+  return authedGet<{ id: number; topic: string; quizType: string; questions: any[] }>(`/quizzes/${quizId}`);
+}
+
+export async function generateQuiz(payload: {
+  noteId?: string;
+  subjectId?: string;
+  topic: string;
+  quizType: "mcq" | "short";
+  count?: number;
+}) {
+  const token = getToken();
+
+  const res = await fetch(`${API_BASE}/quizzes/generate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await res.json();
+  if (!res.ok) throw new Error(json?.error || json?.message || "Generate quiz failed");
+  return json as { quizId: string; topic: string; quizType: string; questions: any[] };
+}
