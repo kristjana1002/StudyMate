@@ -22,7 +22,7 @@ exports.getDashboard = async (req, res) => {
 
     res.json({
       user: {
-        displayName: req.user.name || "Scholar"
+        displayName: req.user.username || "Scholar"
       },
       stats: {
         studyStreakDays: studyStreak,
