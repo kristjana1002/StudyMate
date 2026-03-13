@@ -1,0 +1,34 @@
+TypeScript (TS) – Quick Overview
+
+TypeScript is a programming language developed by Microsoft. It is a
+superset of JavaScript, which means any valid JavaScript code is also
+valid TypeScript code.
+
+Key Features
+
+-   Static typing (you can define types for variables, functions, and
+    objects)
+-   Better tooling and autocomplete in editors
+-   Early error detection during development
+-   Object‑oriented features like interfaces, enums, and generics
+-   Compiles to standard JavaScript so it runs in any browser or Node.js
+    environment
+
+Example
+
+JavaScript: const add = (a, b) => a + b;
+
+TypeScript: const add = (a: number, b: number): number => { return a +
+b; };
+
+Why Developers Use TypeScript
+
+-   Helps prevent bugs in large projects
+-   Makes code easier to understand and maintain
+-   Improves developer productivity with better IDE support
+
+Where TypeScript Is Used
+
+-   Frontend frameworks like React, Angular, and Vue
+-   Backend with Node.js
+-   Large scale web applications

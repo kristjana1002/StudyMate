@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const RequireAuth = require("../middleware/RequireAuth");
+const auth = require("../middleware/auth");
 const noteController = require("../controllers/noteController");
 
 const uploadDir = path.join(__dirname, "..", "uploads");
@@ -20,10 +20,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 12 * 1024 * 1024 }, // 12MB
+  limits: { fileSize: 12 * 1024 * 1024 },
 });
 
-router.post("/upload", RequireAuth, upload.single("file"), noteController.uploadAndSummarize);
-router.get("/:id", RequireAuth, noteController.getNoteById);
+router.post("/upload", auth, upload.single("file"), noteController.uploadAndSummarize);
+router.get("/:id", auth, noteController.getNoteById);
 
 module.exports = router;

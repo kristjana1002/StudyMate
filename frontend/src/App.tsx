@@ -8,12 +8,21 @@ import ProgressPage from "./pages/Progress";
 import AiChat from "./pages/AiChat";
 import Summary from "./pages/SummaryPage";
 import Flashcards from "./pages/Flashcards";
-
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
+import Footer from "./components/Footer";
 
 import "./App.css";
+
+const ProtectedLayout = ({ children }: { children: React.ReactNode }) => (
+  <RequireAuth>
+    <>
+      <Navbar />
+      {children}
+    </>
+  </RequireAuth>
+);
 
 const App: React.FC = () => {
   return (
@@ -25,114 +34,86 @@ const App: React.FC = () => {
         <Route
           path="/"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <Dashboard />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <Dashboard />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/dashboard"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <Dashboard />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <Dashboard />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/upload-notes"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <UploadNotes />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <UploadNotes />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/quiz"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <QuizPage />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <QuizPage />
+            </ProtectedLayout>
+          }
+        />
+
+        <Route
+          path="/quiz/:id"
+          element={
+            <ProtectedLayout>
+              <QuizPage />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/ai-chat"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <AiChat />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <AiChat />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/progress"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <ProgressPage />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <ProgressPage />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/summary"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <Summary />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <Summary />
+            </ProtectedLayout>
           }
         />
 
         <Route
           path="/flashcards"
           element={
-            <RequireAuth>
-              <>
-                <Navbar />
-                <Flashcards />
-              </>
-            </RequireAuth>
+            <ProtectedLayout>
+              <Flashcards />
+            </ProtectedLayout>
           }
         />
-e
-
       </Routes>
     </Router>
   );
 };
-<Route
-  path="/quiz/:id"
-  element={
-    <RequireAuth>
-      <>
-        <Navbar />
-        <QuizPage />
-      </>
-    </RequireAuth>
-  }
-/>
 
 export default App;

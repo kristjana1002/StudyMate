@@ -2,7 +2,12 @@ const pool = require("../config/db");
 
 const getAverageScore = async (userId) => {
   const { rows } = await pool.query(
-    `SELECT AVG(score_percent)::numeric(10,2) AS avg
+    `SELECT AVG(
+        CASE
+          WHEN total > 0 THEN (score::numeric / total::numeric) * 100
+          ELSE 0
+        END
+      )::numeric(10,2) AS avg
      FROM quiz_attempts
      WHERE user_id = $1`,
     [userId]
@@ -13,8 +18,14 @@ const getAverageScore = async (userId) => {
 
 const getSubjectPerformance = async (userId) => {
   const { rows } = await pool.query(
-    `SELECT COALESCE(s.name, 'Unknown') AS subject,
-            AVG(qa.score_percent)::numeric(10,2) AS score
+    `SELECT
+        COALESCE(s.name, 'Unknown') AS subject,
+        AVG(
+          CASE
+            WHEN qa.total > 0 THEN (qa.score::numeric / qa.total::numeric) * 100
+            ELSE 0
+          END
+        )::numeric(10,2) AS score
      FROM quiz_attempts qa
      JOIN quizzes q ON q.id = qa.quiz_id
      LEFT JOIN subjects s ON s.id = q.subject_id

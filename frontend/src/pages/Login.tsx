@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { loginUser, setToken } from "../services/api";
+import React, { useEffect, useState } from "react";
+import { loginUser, setToken, getToken } from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login: React.FC = () => {
@@ -10,12 +10,25 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      nav("/dashboard");
+    }
+  }, [nav]);
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const res = await loginUser({ email, password });
+
+      if (!res?.token) {
+        throw new Error("No token returned from server");
+      }
+
       setToken(res.token);
       nav("/dashboard");
     } catch (err: any) {
@@ -32,12 +45,22 @@ const Login: React.FC = () => {
       <form onSubmit={onSubmit} className="auth-form">
         <label>
           Email
-          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            required
+          />
         </label>
 
         <label>
           Password
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            required
+          />
         </label>
 
         {error && <p className="auth-error">{error}</p>}

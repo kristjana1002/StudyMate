@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("../middleware/auth");
-const { chat } = require("../controllers/aiController");
+const { generateFlashcards } = require("../controllers/flashcardController");
 
-router.post("/chat", auth, chat);
+router.post("/generate", auth, generateFlashcards);
 
 module.exports = router;

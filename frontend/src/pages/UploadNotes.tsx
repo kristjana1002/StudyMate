@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadNote } from "../services/api";
 
 export default function UploadNotes() {
   const nav = useNavigate();
@@ -25,33 +26,21 @@ export default function UploadNotes() {
   };
 
   const onSubmit = async () => {
-    if (!file) return setError("Pick a file first.");
+    if (!file) {
+      setError("Pick a file first.");
+      return;
+    }
+
     setError("");
     setLoading(true);
 
     try {
+      const cleanTitle = file.name.replace(/\.[^/.]+$/, "");
+      const res = await uploadNote(file, cleanTitle);
+
       nav("/summary", {
         state: {
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          meta: { subject: "Physics", date: "Jan 22, 2025", readTime: "5 min read" },
-          summaryData: {
-            aiSummary:
-              "Quantum mechanics is a fundamental theory in physics that describes the behavior of matter and energy at atomic and subatomic scales. Key principles include wave–particle duality, uncertainty principle, and quantum superposition.",
-            keyPoints: [
-              "Wave-particle duality demonstrates that particles can exhibit both wave and particle properties",
-              "Heisenberg's Uncertainty Principle limits simultaneous precision of certain pairs of properties",
-              "Quantum superposition allows multiple states until measured",
-              "The Schrödinger equation is the fundamental equation of quantum mechanics",
-              "Quantum entanglement creates correlations that persist regardless of distance",
-            ],
-            keyConcepts: [
-              { title: "Wave Function", desc: "A mathematical description of the quantum state of a system" },
-              { title: "Quantum State", desc: "The complete description of a physical system in quantum mechanics" },
-              { title: "Observable", desc: "A physical property that can be measured" },
-              { title: "Eigenstate", desc: "A state with a definite value for an observable" },
-            ],
-            relatedTopics: ["Quantum Field Theory", "Particle Physics", "Wave Mechanics", "Statistical Mechanics"],
-          },
+          noteId: res.noteId,
         },
       });
     } catch (e: any) {
@@ -69,8 +58,8 @@ export default function UploadNotes() {
             Upload <span>Study Materials</span>
           </h1>
           <p>
-            Upload your notes, PDFs, textbooks, or images. Our AI will analyze and create summaries, quizzes, and
-            flashcards.
+            Upload your notes, PDFs, textbooks, or images. Our AI will analyze
+            and create summaries, quizzes, and flashcards.
           </p>
         </div>
 
@@ -88,16 +77,25 @@ export default function UploadNotes() {
           onKeyDown={(e) => (e.key === "Enter" ? pickFile() : null)}
         >
           <div className="sm-drop-inner">
-            <div className="sm-upload-icon" aria-hidden="true">⤴</div>
+            <div className="sm-upload-icon" aria-hidden="true">
+              ⤴
+            </div>
 
             <div className="sm-drop-title">Drag & drop files here</div>
             <div className="sm-drop-sub">or</div>
 
-            <button className="sm-btn sm-btn-primary" type="button" onClick={pickFile} disabled={loading}>
+            <button
+              className="sm-btn sm-btn-primary"
+              type="button"
+              onClick={pickFile}
+              disabled={loading}
+            >
               Browse Files
             </button>
 
-            <div className="sm-drop-hint">Supports PDF, DOC, TXT, and images (PNG, JPG)</div>
+            <div className="sm-drop-hint">
+              Supports PDF, DOC, TXT, and images (PNG, JPG)
+            </div>
 
             <input
               ref={inputRef}
@@ -115,11 +113,18 @@ export default function UploadNotes() {
               <span className="sm-dot" />
               <div className="sm-file-meta">
                 <div className="sm-file-name">{file.name}</div>
-                <div className="sm-file-small">{Math.ceil(file.size / 1024)} KB</div>
+                <div className="sm-file-small">
+                  {Math.ceil(file.size / 1024)} KB
+                </div>
               </div>
             </div>
 
-            <button className="sm-btn sm-btn-glow" type="button" onClick={onSubmit} disabled={loading}>
+            <button
+              className="sm-btn sm-btn-glow"
+              type="button"
+              onClick={onSubmit}
+              disabled={loading}
+            >
               {loading ? "Processing..." : "Generate Summary"}
             </button>
           </div>

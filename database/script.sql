@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS notes (
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL,
   title TEXT NOT NULL,
+  original_filename TEXT,
+  file_path TEXT,
   content TEXT,
   summary TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -35,6 +37,10 @@ CREATE TABLE IF NOT EXISTS quizzes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL,
+  note_id UUID REFERENCES notes(id) ON DELETE SET NULL,
+  topic TEXT,
+  quiz_type TEXT CHECK (quiz_type IN ('mcq', 'short')),
+  questions_json JSONB,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -42,7 +48,10 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   quiz_id UUID NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  score_percent INT NOT NULL CHECK (score_percent BETWEEN 0 AND 100),
+  answers_json JSONB,
+  score INT NOT NULL DEFAULT 0,
+  total INT NOT NULL DEFAULT 0,
+  feedback_json JSONB,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -64,38 +73,48 @@ CREATE TABLE IF NOT EXISTS activities (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+INSERT INTO subjects (name) VALUES ('Math') ON CONFLICT DO NOTHING;
+INSERT INTO subjects (name) VALUES ('Physics') ON CONFLICT DO NOTHING;
+INSERT INTO subjects (name) VALUES ('Chemistry') ON CONFLICT DO NOTHING;
 
-CREATE TABLE IF NOT EXISTS notes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  title VARCHAR(255),
-  original_filename VARCHAR(255),
-  file_path VARCHAR(512),
-  content LONGTEXT,
-  summary LONGTEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+INSERT INTO study_sessions (user_id, started_at, ended_at)
+VALUES (
+  (SELECT id FROM users ORDER BY created_at DESC LIMIT 1),
+  now() - interval '1 hour',
+  now()
 );
 
-
-CREATE TABLE IF NOT EXISTS quiz_questions (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  quiz_id UUID NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
-  question_index INT NOT NULL,
-  type TEXT NOT NULL CHECK (type IN ('mcq','short')),
-  question TEXT NOT NULL,
-  choices JSONB,          
-  correct JSONB,          
-  explanation TEXT,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (quiz_id, question_index)
+INSERT INTO activities (user_id, label, score_percent)
+VALUES (
+  (SELECT id FROM users ORDER BY created_at DESC LIMIT 1),
+  'Completed Math Quiz',
+  92
 );
 
-CREATE TABLE IF NOT EXISTS quiz_answers (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  attempt_id UUID NOT NULL REFERENCES quiz_attempts(id) ON DELETE CASCADE,
-  question_id UUID NOT NULL REFERENCES quiz_questions(id) ON DELETE CASCADE,
-  answer JSONB NOT NULL, 
-  is_correct BOOLEAN NOT NULL DEFAULT false,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (attempt_id, question_id)
-);
+ALTER TABLE quizzes
+ADD COLUMN IF NOT EXISTS note_id UUID REFERENCES notes(id) ON DELETE SET NULL;
+
+ALTER TABLE quizzes
+ADD COLUMN IF NOT EXISTS topic TEXT;
+
+ALTER TABLE quizzes
+ADD COLUMN IF NOT EXISTS quiz_type TEXT CHECK (quiz_type IN ('mcq','short'));
+
+ALTER TABLE quizzes
+ADD COLUMN IF NOT EXISTS questions_json JSONB;
+
+So the DB needs those columns.
+
+Run this in Postgres:
+
+ALTER TABLE notes
+ADD COLUMN IF NOT EXISTS original_filename TEXT,
+ADD COLUMN IF NOT EXISTS file_path TEXT;
+
+Then verify:
+
+ALTER TABLE quiz_attempts
+ALTER COLUMN score_percent SET DEFAULT 0;
+
+ALTER TABLE quiz_attempts
+ALTER COLUMN score_percent DROP NOT NULL;
